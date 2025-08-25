@@ -1,3 +1,8 @@
+// android/build.gradle.kts  (root of the Android folder)
+
+// No plugin versions here — Flutter’s settings.gradle handles that.
+// Keep the root build file minimal.
+
 allprojects {
     repositories {
         google()
@@ -5,17 +10,6 @@ allprojects {
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
-rootProject.layout.buildDirectory.value(newBuildDir)
-
-subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
-}
-
 tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+    delete(layout.buildDirectory)
 }
